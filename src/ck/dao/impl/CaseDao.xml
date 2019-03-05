@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ck.dao.CaseDao">
+	
+	<!-- 建立sql查询结果字段与实体属性的映射关系 -->
+	<resultMap id="CaseMap" type="ck.bean.Case">
+		<result column="cid" property="cid" />
+		<result column="cname" property="cname" />
+		<result column="sort" property="sort" />
+		<result column="members" property="members" />
+		<result column="cmessage" property="cmessage" />
+		<result column="cdate" property="cdate" />
+		<result column="tid" property="tid" />
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllCase" resultMap="CaseMap">
+		SELECT * FROM tb_case
+	</select>
+	<!-- 查找数目3 -->
+	<select id="findInCase" resultMap="CaseMap">
+		SELECT * FROM tb_case LIMIT 0,4
+	</select>
+</mapper>
