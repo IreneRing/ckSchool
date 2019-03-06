@@ -3,7 +3,7 @@ package ck.bean;
 public class Res {
 	private int rid;
 	private String rname;
-	private String rmassage;
+	private String rmessage;
 	private String link;
 	private String rdate;
 	private int uid;
@@ -25,12 +25,12 @@ public class Res {
 		this.rname = rname;
 	}
 
-	public String getRmassage() {
-		return rmassage;
+	public String getRmessage() {
+		return rmessage;
 	}
 
-	public void setRmassage(String rmassage) {
-		this.rmassage = rmassage;
+	public void setRmessage(String rmessage) {
+		this.rmessage = rmessage;
 	}
 
 	public String getLink() {
@@ -67,7 +67,7 @@ public class Res {
 
 	@Override
 	public String toString() {
-		return "Resources [rid=" + rid + ", rname=" + rname + ", rmassage=" + rmassage + ", link=" + link + ", rdate="
+		return "Resources [rid=" + rid + ", rname=" + rname + ", rmessage=" + rmessage + ", link=" + link + ", rdate="
 				+ rdate + ", uid=" + uid + ", rcid=" + rcid + "]";
 	}
 
