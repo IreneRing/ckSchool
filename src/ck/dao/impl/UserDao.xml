@@ -6,7 +6,7 @@
 	
 	<!-- 建立sql查询结果字段与实体属性的映射关系 -->
 	<resultMap id="UserExMap" type="ck.bean.UserEx">
-		<result column="uid" property="uid" />
+		<id column="uid" property="uid" />
 		<result column="user" property="user" />
 		<result column="username" property="username" />
 		<result column="password" property="password" />
@@ -18,14 +18,14 @@
 	</resultMap>
 	
 	<!-- 校验用户 -->
-	<select id="findByUser" resultMap="UserExMap">
+	<select id="onLogin" resultMap="UserExMap">
 		SELECT
 			tb_user.*,role.rname
 		FROM
 			tb_user,role
 		WHERE
 			1 = 1
-			and r_id!=3
+			and role.rid!=3
 			and role.rid=tb_user.rid
 		<if test="user != null and user != ''">AND user=#{user}</if>
 		<if test="password != null and password != ''">AND password=#{password}</if>
@@ -37,7 +37,7 @@
 		FROM
 			tb_user,role
 		WHERE
-			r_id!=3
+			role.rid!=3
 			and role.rid=tb_user.rid
 	</select>
 </mapper>

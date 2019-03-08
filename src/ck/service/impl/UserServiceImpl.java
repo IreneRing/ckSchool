@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService{
 	
 	//登陆返回user对象
 
-	public UserEx findUser(String user, String password) {
-		return userDao.findByUser(user, password);
+	public UserEx onLogin(String user, String password) {
+		return userDao.onLogin(user, password);
 	}
 	//返回user集合
 	@Override

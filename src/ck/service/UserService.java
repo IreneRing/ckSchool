@@ -9,7 +9,7 @@ import ck.bean.UserEx;
 public interface UserService {
 	//登陆返回user对象
 	
-	UserEx findUser(String user,String password);
+	UserEx onLogin(String user,String password);
 	//返回user集合
 	List<UserEx> findAllUser();
 }

@@ -11,7 +11,7 @@ import ck.bean.UserEx;
 public interface UserDao {
 
 	//返回对象查询接口
-	UserEx findByUser(@Param("user") String user, @Param("password") String password);
+	UserEx onLogin(@Param("user") String user, @Param("password") String password);
 	//返回全部對象接口
 	List<UserEx> findUser();
 }

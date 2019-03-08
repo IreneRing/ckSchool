@@ -41,19 +41,26 @@ public class UserAction {
 			@RequestParam(required=false, value="user") String user,
 			@RequestParam(required=false, value="password") String password) {
 		
+		System.out.println(user+";"+password);
 		// 如果登录名或密码未填写，直接返回登录页面
 		if (StringUtils.isEmpty(user) || StringUtils.isEmpty(password)) {
-			return "user/login";
+			map.addAttribute("msg","不能为空");
+			return "login";
 		}
 		
 		// 校验用户名、密码是否正确
-		User userName = userService.findUser(user, password);
+		UserEx userName = userService.onLogin(user, password);
 		if (userName==null) {
-			return "user/login";
+			map.addAttribute("msg","账号或密码错误");
+			return "login";
 		}
 		
 		// 登录成功，进入主页
-		return "user/index";
+		if(userName.getRname().equals("管理员")) {
+			return "admin/index";
+		}else {
+			return "user/index";
+		}
 	}
 
 	@RequestMapping("getAllUser.action")
