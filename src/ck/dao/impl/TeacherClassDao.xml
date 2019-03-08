@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ck.dao.TeacherClassDao">
+	
+	<!-- 建立sql查询结果字段与实体属性的映射关系 -->
+	<resultMap id="TeacherClassMap" type="ck.bean.TeacherClass">
+		<id column="tcid" property="tcid" />
+		<result column="tcclass" property="tcclass" />
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllTeacherClass" resultMap="TeacherClassAndTeacherMap">
+		SELECT * FROM tb_teacher_class 
+	</select>
+	
+	<resultMap id="TeacherClassAndTeacherMap" type="ck.bean.TeacherClass">
+		<id column="tcid" property="tcid" />
+		<result column="tcclass" property="tcclass" />
+		<collection property="teacher"   ofType="ck.bean.Teacher" >
+			<id column="tid" property="tid" />
+			<result column="tname" property="tname" />
+			<result column="ttitle" property="ttitle" />
+			<result column="tdate" property="tdate" />
+			<result column="tpic" property="tpic" />
+			<result column="temail" property="temail" />
+			<result column="tqq" property="tqq" />
+			<result column="tphone" property="tphone" />
+			<result column="tcid" property="tcid" />
+		</collection>
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllTeacherClassAndTeacher" resultMap="TeacherClassAndTeacherMap">
+		SELECT * FROM tb_teacher_class LEFT JOIN	tb_teacher ON	tb_teacher.tcid=tb_teacher_class.tcid ORDER BY tb_teacher_class.tcid
+	</select>
+</mapper>

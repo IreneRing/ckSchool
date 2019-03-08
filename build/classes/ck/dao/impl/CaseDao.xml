@@ -6,20 +6,20 @@
 	
 	<!-- 建立sql查询结果字段与实体属性的映射关系 -->
 	<resultMap id="CaseMap" type="ck.bean.Case">
-		<result column="cid" property="cid" />
+		<id column="cid" property="cid" />
 		<result column="cname" property="cname" />
-		<result column="sort" property="sort" />
 		<result column="members" property="members" />
 		<result column="cmessage" property="cmessage" />
 		<result column="cdate" property="cdate" />
 		<result column="tid" property="tid" />
+		<result column="ccid" property="ccid" />
 	</resultMap>
 	<!-- 查找所有 -->
 	<select id="findAllCase" resultMap="CaseMap">
-		SELECT * FROM tb_case
+		SELECT * FROM tb_case ORDER BY cdate DESC
 	</select>
-	<!-- 查找数目3 -->
+	<!-- 查找数目4 -->
 	<select id="findInCase" resultMap="CaseMap">
-		SELECT * FROM tb_case LIMIT 0,4
+		SELECT * FROM tb_case ORDER BY cdate DESC	LIMIT 0,4
 	</select>
 </mapper>

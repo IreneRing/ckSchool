@@ -49,6 +49,7 @@
 		<property name="dataSource" ref="ds"></property>
 		<!-- 映射文件的位置 -->
 		<property name="mapperLocations" value="classpath:ck/dao/impl/*.xml"></property>
+		<property name="configLocation" value="classpath:mybatis.xml"></property>
 	</bean>
 	
 	<!-- 该bean负责调用SqlSession的getMapper函数 -->

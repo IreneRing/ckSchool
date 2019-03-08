@@ -18,7 +18,7 @@
 	</resultMap>
 	<!-- 查找所有 -->
 	<select id="findAllAchievements" resultMap="AchievementsMap">
-		SELECT tb_achievements.*,tb_user.username,tb_teacher.tname FROM tb_achievements,tb_teacher,tb_user WHERE tb_achievements.uid=tb_user.uid AND tb_teacher.tid=tb_achievements.tid
+		SELECT tb_achievements.*,tb_user.username,tb_teacher.tname FROM tb_achievements,tb_teacher,tb_user WHERE tb_achievements.uid=tb_user.uid AND tb_teacher.tid=tb_achievements.tid ORDER BY tb_achievements.adate DESC
 	</select>
 	<!-- 查找数目4 -->
 	<select id="findInAchievements" resultMap="AchievementsMap">

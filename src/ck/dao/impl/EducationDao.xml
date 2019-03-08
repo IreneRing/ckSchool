@@ -18,7 +18,7 @@
 	</resultMap>
 	<!-- 查找所有 -->
 	<select id="findAllEducation" resultMap="EducationExMap">
-		SELECT tb_education.*,tb_education_class.ecclass,tb_user.username FROM tb_education,tb_education_class,tb_user WHERE tb_education.ecid=tb_education_class.ecid AND tb_user.uid=tb_education.uid
+		SELECT tb_education.*,tb_education_class.ecclass,tb_user.username FROM tb_education,tb_education_class,tb_user WHERE tb_education.ecid=tb_education_class.ecid AND tb_user.uid=tb_education.uid ORDER BY tb_education.edate
 	</select>
 	<!-- 查找数目4 -->
 	<select id="findInEducation" resultMap="EducationExMap">

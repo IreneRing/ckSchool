@@ -46,7 +46,7 @@
 					<div class="one">
 						<div class="three-fourth">
 						
-						 <c:forEach var="eduList" items="${eduList}">
+						 <c:forEach var="eduList" items="${pageInfo.list}">
 							<div class="blog-post layout-2">
 								<div class="media-holder">
 									<div class="item-wrapp">
@@ -93,13 +93,11 @@
 							<!-- Pagination -->
 							<nav class="pagination">
 							<ul>
-								<li><a href="#">上一页</a></li>
-								<li><a href="#" class="current">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">下一页</a></li>
+								<li><a href="${pageContext.request.contextPath}/edu/findAllEducation.action?currentPage=1">首页</a></li>
+								<li><a href="${pageContext.request.contextPath}/edu/findAllEducation.action?currentPage=${pageInfo.prePage}" >上一页</a></li>
+								<li><a href="${pageContext.request.contextPath}/edu/findAllEducation.action?currentPage=${pageInfo.nextPage}">下一页</a></li>
+								<li><a href="${pageContext.request.contextPath}/edu/findAllEducation.action?currentPage=${pageInfo.pages}">尾页</a></li>
+								<li><a href="javascript:void(0);">当前[${pageInfo.pageNum }/${pageInfo.pages }]页</a></li>
 							</ul>
 							<div class="clearfix"></div>
 							</nav>

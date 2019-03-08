@@ -1,9 +1,15 @@
 package ck.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 import ck.service.NewService;
 
@@ -20,8 +26,13 @@ public class NewAction {
 	 * 查出所有
 	 */
 	@RequestMapping("findAllNew.action")
-	public String findAllNew(ModelMap map){
-		map.addAttribute("newList",newService.findAllNew());
+	public String findAllNew(ModelMap map,@RequestParam(value="currentPage",required=false,defaultValue="1") int currentPage){
+		//设置分页
+		PageHelper.startPage(currentPage,4);
+		List list=newService.findAllNew();
+		//调动分页
+		PageInfo pageInfo=new PageInfo(list);
+		map.addAttribute("pageInfo",pageInfo);
 		return "index/new";
 	}
 	

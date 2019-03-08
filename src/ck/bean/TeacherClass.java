@@ -1,8 +1,18 @@
 package ck.bean;
 
+import java.util.List;
+
 public class TeacherClass {
 	private int tcid;
 	private String tcclass;
+	private List<Teacher> teacher;
+	
+	public List<Teacher> getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(List<Teacher> teacher) {
+		this.teacher = teacher;
+	}
 	public int getTcid() {
 		return tcid;
 	}

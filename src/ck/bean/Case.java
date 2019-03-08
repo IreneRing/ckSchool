@@ -3,11 +3,19 @@ package ck.bean;
 public class Case {
 	private int cid;
 	private String cname;
-	private String sort;
 	private String members;
 	private String cmessage;
 	private String cdate;
 	private int tid;
+	private int ccid;
+	
+	
+	public int getCcid() {
+		return ccid;
+	}
+	public void setCcid(int ccid) {
+		this.ccid = ccid;
+	}
 	public int getCid() {
 		return cid;
 	}
@@ -19,12 +27,6 @@ public class Case {
 	}
 	public void setCname(String cname) {
 		this.cname = cname;
-	}
-	public String getSort() {
-		return sort;
-	}
-	public void setSort(String sort) {
-		this.sort = sort;
 	}
 	public String getMembers() {
 		return members;
@@ -50,10 +52,4 @@ public class Case {
 	public void setTid(int tid) {
 		this.tid = tid;
 	}
-	@Override
-	public String toString() {
-		return "Case [cid=" + cid + ", cname=" + cname + ", sort=" + sort + ", members=" + members + ", cmessage="
-				+ cmessage + ", cdate=" + cdate + ", tid=" + tid + "]";
-	}
-	
 }

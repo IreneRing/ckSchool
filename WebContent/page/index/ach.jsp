@@ -38,10 +38,10 @@
 						</nav><!--breadcrumb nav ends -->
 					</div>
 				</div>
-			</div><!--breadcrumbs ends -->
+		</div><!--breadcrumbs ends -->
 		<div class="container">
 		 <ul class="client-block modern">
-		 <c:forEach var="achievementsList" items="${achievementsList }" varStatus="status">
+		 <c:forEach var="achievementsList" items="${pageInfo.list }" varStatus="status">
 		 	<c:if test="status%2==0">
 		 		<div class="horizontal-line"></div>
 		 	</c:if>
@@ -54,27 +54,38 @@
 			 
 		 </c:forEach>
 		 </ul>
-		<div class="horizontal-line"></div>
+		 <!-- Pagination -->
+		<nav class="pagination">
+		<ul>
+			<li><a href="${pageContext.request.contextPath}/achievements/findAllAchievements.action?currentPage=1">首页</a></li>
+			<li><a href="${pageContext.request.contextPath}/achievements/findAllAchievements.action?currentPage=${pageInfo.prePage}" >上一页</a></li>
+			<li><a href="${pageContext.request.contextPath}/achievements/findAllAchievements.action?currentPage=${pageInfo.nextPage}">下一页</a></li>
+			<li><a href="${pageContext.request.contextPath}/achievements/findAllAchievements.action?currentPage=${pageInfo.pages}">尾页</a></li>
+			<li><a href="javascript:void(0);">当前[${pageInfo.pageNum }/${pageInfo.pages }]页</a></li>
+		</ul>
+		<div class="clearfix"></div>
+		</nav>
+		<!-- <div class="horizontal-line"></div>
 
-		<!-- <ul class="client-block modern">
+		 <ul class="client-block modern">
 			 <li class="one-fourth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-1.png" alt=""/></a></li>
 			 <li class="one-fourth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-2.png" alt=""/></a></li>
 			 <li class="one-fourth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-3.png" alt=""/></a></li>
 			 <li class="one-fourth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-4.png" alt=""/></a></li>
 		 </ul> -->
 
-		 <div class="horizontal-line"></div>
+		<!--  <div class="horizontal-line"></div>
 
-		<!--  <ul class="client-block modern">
+		 <ul class="client-block modern">
 			 <li class="one-fifth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-1.png" alt=""/></a></li>
 			 <li class="one-fifth"><a href="about-us.html#" class="tooltip" title="Some Clients Name"><img src="images/clients/client-2.png" alt=""/></a></li>
 			 <li class="one-fifth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-3.png" alt=""/></a></li>
 			 <li class="one-fifth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-4.png" alt=""/></a></li>
 			 <li class="one-fifth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-5.png" alt=""/></a></li>
 		 </ul> -->
-		 <div class="horizontal-line"></div>
+		<!--  <div class="horizontal-line"></div>
 
-		 <!-- <ul class="client-block modern">
+		 <ul class="client-block modern">
 			 <li class="one-sixth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-1.png" alt=""/></a></li>
 			 <li class="one-sixth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-2.png" alt=""/></a></li>
 			 <li class="one-sixth"><a href="about-us.html" class="tooltip" title="Some Clients Name"><img src="images/clients/client-3.png" alt=""/></a></li>

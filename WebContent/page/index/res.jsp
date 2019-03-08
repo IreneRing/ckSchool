@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,19 +46,29 @@
 			<div class="container">
 				<section class="one">
 				<div class="one-fourth">
-					<h4>电子书</h4>
+				<c:forEach var="list" items="${pageInfo.list }">
+					<h4>${list.rcclass}</h4>
 					<ul class="unstyled">
-						<li>1</li>
-						<li>1</li>
-						<li>1</li>
-						<li>1</li>
+					<c:forEach var="res" items="${list.res}">
+						<li><a href="#">${res.rname}</a></li>
+					</c:forEach>
 					</ul>
+				</c:forEach>
 				</div>
-
-
-
+				<!-- Pagination -->
+					<nav class="pagination">
+						<ul>
+							<li><a href="${pageContext.request.contextPath}/res/findAllRes.action?currentPage=1">首页</a></li>
+							<li><a href="${pageContext.request.contextPath}/res/findAllRes.action?currentPage=${pageInfo.prePage}" >上一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/res/findAllRes.action?currentPage=${pageInfo.nextPage}">下一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/res/findAllRes.action?currentPage=${pageInfo.pages}">尾页</a></li>
+							<li><a href="javascript:void(0);">当前[${pageInfo.pageNum }/${pageInfo.pages }]页</a></li>
+						</ul>
+					</nav>
+				<!-- End pagination -->
+				
 				</section>
-				<section class="one">
+				<!-- <section class="one">
 				<div class="horizontal-line">
 				</div>
 				<h4>工具</h4>
@@ -207,7 +218,7 @@
 				<ul class="unstyled">
 				</ul>
 				</section>
-				</section>
+				</section> -->
 				<div class="horizontal-line">
 				</div>
 			</div>

@@ -42,15 +42,19 @@
 			</div><!--breadcrumbs ends -->
 			<div class="container">
 				<ul id="filterable">
-					<li><a data-categories="*">全部</a></li>
+					<!-- <li><a data-categories="*">全部</a></li>
 					<li><a data-categories="print">Print Design</a></li>
 					<li><a data-categories="design">Design</a></li>
 					<li><a data-categories="illustration">Illustration</a></li>
 					<li><a data-categories="photography">Photography</a></li>
-					<li><a data-categories="development">Development</a></li>
+					<li><a data-categories="development">Development</a></li> -->
+					<li><a data-categories="*">全部</a></li>
+				<c:forEach var="tcList" items="${tcList }">
+					<li><a data-categories="print">${tcList.tcclass }</a></li>
+				</c:forEach>
 				</ul>
 				<ul id="portfolio-container" class="two-columns">
-					<c:forEach var="teaList" items="${teaList }">
+					<c:forEach var="teaList" items="${pageInfo.list }">
 						<li class="isotope-item" data-categories="design print" style="float: left">
 							<div class="item-wrapp" >
 									<div class="portfolio-item">
@@ -76,11 +80,11 @@
 					<!-- Pagination -->
 						<nav class="pagination">
 						<ul>
-							<li><a href="#">上一页</a></li>
-							<li><a href="#" class="current">1</a></li>
-							<li><a href="#" >2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">下一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/tea/findAllTeacher.action?currentPage=1">首页</a></li>
+							<li><a href="${pageContext.request.contextPath}/tea/findAllTeacher.action?currentPage=${pageInfo.prePage}" >上一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/tea/findAllTeacher.action?currentPage=${pageInfo.nextPage}">下一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/tea/findAllTeacher.action?currentPage=${pageInfo.pages}">尾页</a></li>
+							<li><a href="javascript:void(0);">当前[${pageInfo.pageNum }/${pageInfo.pages }]页</a></li>
 						</ul>
 						 
 						</nav>

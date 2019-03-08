@@ -24,6 +24,7 @@
 	<!-- 查找数目3 -->
 	<select id="findInTeacher" resultMap="TeacherExMap">
 		SELECT tb_teacher.*,tb_teacher_class.tcclass FROM tb_teacher,tb_teacher_class WHERE	
-		tb_teacher.tcid=tb_teacher_class.tcid LIMIT 0, 3
+		tb_teacher.tcid=tb_teacher_class.tcid ORDER BY	tdate DESC
+		LIMIT 0, 3
 	</select>
 </mapper>

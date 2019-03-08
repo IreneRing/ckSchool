@@ -18,7 +18,7 @@
 	</resultMap>
 	<!-- 查找所有 -->
 	<select id="findAllNew" resultMap="NewExMap">
-		SELECT tb_new.*,tb_new_class.ncclass,tb_user.username FROM tb_new,tb_new_class,tb_user WHERE tb_new.ncid=tb_new_class.ncid AND tb_user.uid=tb_new.uid
+		SELECT tb_new.*,tb_new_class.ncclass,tb_user.username FROM tb_new,tb_new_class,tb_user WHERE tb_new.ncid=tb_new_class.ncid AND tb_user.uid=tb_new.uid ORDER BY tb_new.ndate DESC
 	</select>
 	<!-- 查找数目4 -->
 	<select id="findInNew" resultMap="NewExMap">

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ck.dao.CaseClassDao">
+	<resultMap id="CaseClassMap" type="ck.bean.CaseClass">
+		<id column="ccid" property="ccid" />
+		<result column="ccclass" property="ccclass" />
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllCaseClass" resultMap="CaseClassMap">
+		SELECT * FROM tb_cass_class 
+	</select>
+	
+	<resultMap id="CaseClassAndCaseMap" type="ck.bean.CaseClass">
+		<id column="ccid" property="ccid" />
+		<result column="ccclass" property="ccclass" />
+		<collection property="caseList"   ofType="ck.bean.Case" >
+			<id column="cid" property="cid" />
+			<result column="cname" property="cname" />
+			<result column="members" property="members" />
+			<result column="cmessage" property="cmessage" />
+			<result column="cdate" property="cdate" />
+			<result column="tid" property="tid" />
+			<result column="ccid" property="ccid" />
+		</collection>
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllCaseAndClass" resultMap="CaseClassAndCaseMap">
+		SELECT * FROM tb_cass_class LEFT JOIN	tb_case ON	tb_cass_class.ccid=tb_case.ccid ORDER BY tb_cass_class.ccid
+	</select>
+</mapper>

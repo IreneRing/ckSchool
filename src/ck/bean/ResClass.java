@@ -1,8 +1,18 @@
 package ck.bean;
 
+import java.util.List;
+
 public class ResClass {
 	private int rcid;
 	private String rcclass;
+	private List<Res> res;
+	
+	public List<Res> getRes() {
+		return res;
+	}
+	public void setRes(List<Res> res) {
+		this.res = res;
+	}
 	public int getRcid() {
 		return rcid;
 	}

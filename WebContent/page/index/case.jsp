@@ -45,16 +45,14 @@
 				<!--breadcrumbs ends -->
 			<div class="container">
 				<ul id="filterable">
-					<li><a data-categories="*">All</a></li>
-					<li><a data-categories="print">Print Design</a></li>
-					<li><a data-categories="design">Design</a></li>
-					<li><a data-categories="illustration">Illustration</a></li>
-					<li><a data-categories="photography">Photography</a></li>
-					<li><a data-categories="development">Development</a></li>
+					<li><a data-categories="*">全部</a></li>
+				<c:forEach var="ccList" items="${ccList }">
+					<li><a data-categories="print">${ccList.ccclass }</a></li>
+				</c:forEach>
 				</ul>
 				 
 				<ul id="portfolio-container" class="four-columns">
-					<c:forEach var="caseList" items="${caseList }">
+					<c:forEach var="caseList" items="${pageInfo.list }">
 					<li class="isotope-item" data-categories="design print"
 								style="float: left">
 						<div class="item-wrapp">
@@ -254,11 +252,11 @@
 					<!-- Pagination -->
 						<nav class="pagination">
 						<ul>
-							<li><a href="#">上一页</a></li>
-							<li><a href="#" class="current">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">下一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/case/findAllTeacher.action?currentPage=1">首页</a></li>
+							<li><a href="${pageContext.request.contextPath}/case/findAllTeacher.action?currentPage=${pageInfo.prePage}" >上一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/case/findAllTeacher.action?currentPage=${pageInfo.nextPage}">下一页</a></li>
+							<li><a href="${pageContext.request.contextPath}/case/findAllTeacher.action?currentPage=${pageInfo.pages}">尾页</a></li>
+							<li><a href="javascript:void(0);">当前[${pageInfo.pageNum }/${pageInfo.pages }]页</a></li>
 						</ul>
 						 
 						</nav>
