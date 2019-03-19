@@ -23,6 +23,7 @@ public class AchievementsAction {
 	@Autowired
 	private AchievementsService achievementsService;
 	
+	//index
 	/**
 	 * 查出所有
 	 */

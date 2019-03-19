@@ -23,6 +23,8 @@ public class ResAction {
 	private ResService resService;
 	@Autowired
 	private ResClassService resClassService;
+	
+	//index
 	/**
 	 * 按照种类查询
 	 * @return

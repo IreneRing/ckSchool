@@ -25,6 +25,8 @@ public class TeacherAction {
 	private TeacherService teacherService;
 	@Autowired
 	private	TeacherClassService	teacherClassService;
+	
+	//index
 	/**
 	 * 查出所有
 	 */

@@ -25,6 +25,8 @@ public class CaseAction {
 	private CaseService caseService;
 	@Autowired
 	private	CaseClassService caseClassService;
+	
+	//index
 	/**
 	 * 查出所有
 	 */

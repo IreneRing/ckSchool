@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ck.dao.EducationClassDao">
+	<resultMap id="EducationClassMap" type="ck.bean.EducationClass">
+		<id column="ecid" property="ecid" />
+		<result column="ecclass" property="ecclass" />
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllEducationClass" resultMap="EducationClassMap">
+		SELECT * FROM tb_education_class
+	</select>
+	
+	<resultMap id="EducationClassAndEducationMap" type="ck.bean.EducationClass">
+		<id column="ecid" property="ecid" />
+		<result column="ecclass" property="ecclass" />
+		<collection property="education"   ofType="ck.bean.Education" >
+			<id column="eid" property="eid" />
+			<result column="ename" property="ename" />
+			<result column="emessage" property="emessage" />
+			<result column="edate" property="edate" />
+			<result column="epic" property="epic" />
+			<result column="uid" property="uid" />
+			<result column="ecid" property="ecid" />
+		</collection>
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findEducationClassAndEducation" resultMap="EducationClassAndEducationMap">
+	SELECT * FROM tb_education_class LEFT JOIN	tb_education ON	tb_education_class.ecid=tb_education.ecid ORDER BY tb_education.edate DESC
+	</select>
+</mapper>

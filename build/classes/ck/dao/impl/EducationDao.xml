@@ -6,7 +6,7 @@
 	
 	<!-- 建立sql查询结果字段与实体属性的映射关系 -->
 	<resultMap id="EducationExMap" type="ck.bean.EducationEx">
-		<result column="eid" property="eid" />
+		<id column="eid" property="eid" />
 		<result column="ename" property="ename" />
 		<result column="emessage" property="emessage" />
 		<result column="edate" property="edate" />
@@ -24,4 +24,40 @@
 	<select id="findInEducation" resultMap="EducationExMap">
 		SELECT tb_education.*,tb_education_class.ecclass,tb_user.username FROM tb_education,tb_education_class,tb_user WHERE tb_education.ecid=tb_education_class.ecid AND tb_user.uid=tb_education.uid LIMIT 0,4
 	</select>
+	<!-- id查找 -->
+	<select id="findEducationExById" resultMap="EducationExMap">
+	SELECT tb_education.*,tb_education_class.ecclass,tb_user.username FROM tb_education,tb_education_class,tb_user WHERE tb_education.eid=#{eid} and tb_education.ecid=tb_education_class.ecid AND tb_user.uid=tb_education.uid
+	</select>
+	<!-- ecid查找 -->
+	<select id="findEducationExByClass" resultMap="EducationExMap">
+	SELECT tb_education.*,tb_education_class.ecclass,tb_user.username FROM tb_education,tb_education_class,tb_user WHERE tb_education.ecid=#{ecid} and tb_education.ecid=tb_education_class.ecid AND tb_user.uid=tb_education.uid
+	</select>
+	<!-- 日期查找 -->
+	<select id="findEducationExByDate" resultMap="EducationExMap">
+	SELECT tb_education.*,tb_education_class.ecclass,tb_user.username FROM tb_education,tb_education_class,tb_user WHERE tb_education.edate
+	like
+	'%' #{edate} '%' and tb_education.ecid=tb_education_class.ecid AND tb_user.uid=tb_education.uid
+	</select>
+	
+	<insert id="addEducationEx" parameterType="ck.bean.Education">
+		INSERT INTO tb_education(ename,emessage,edate,epic,uid,ecid) 
+		VALUES(#{ename},#{emessage},#{edate},#{epic},#{uid},#{ecid})
+	</insert>
+	
+	<update id="updEducationEx" parameterType="ck.bean.Education">
+    	UPDATE tb_education SET ename=#{ename} ,emessage=#{emessage} , edate=#{edate} ,epic=#{epic} ,uid=#{uid} ,ecid=#{ecid}
+		WHERE eid=#{eid}
+	</update>
+	
+	<delete id="delEducationEx" parameterType="java.lang.Integer">
+    	delete from tb_education where eid = #{eid}
+	</delete>
+	<delete id="delAllEducation" parameterType="java.util.List">
+    	delete from tb_education where eid 
+			in 
+			<foreach collection="list" item="eid" 
+				open="(" close=")" separator=",">
+				 #{eid}
+			</foreach>
+	</delete>
 </mapper>

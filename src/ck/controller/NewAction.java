@@ -22,6 +22,7 @@ public class NewAction {
 	@Autowired
 	private NewService newService;
 	
+	//index
 	/**
 	 * 查出所有
 	 */

@@ -19,6 +19,7 @@ public class BaseAction {
 	@Autowired
 	private TeacherService teacherService;
 	
+	//index
 	//后台登陆
 	@RequestMapping("login.action")
 	public String login(ModelMap map,@RequestParam(required=false, value="msg") String msg) {

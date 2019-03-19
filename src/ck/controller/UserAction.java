@@ -4,6 +4,9 @@ package ck.controller;
  */
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +15,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ck.bean.User;
 import ck.bean.UserEx;
 import ck.service.UserService;
 
@@ -28,7 +30,7 @@ public class UserAction {
 	 */
 	@RequestMapping("index.action")
 	public String index() {
-		return "user/login";
+		return "login";
 	}
 	
 	/**
@@ -37,7 +39,7 @@ public class UserAction {
 	 * @param passWord 登录密码
 	 */
 	@RequestMapping("login.action")
-	public String login(ModelMap map,
+	public String login(HttpServletRequest request,ModelMap map,
 			@RequestParam(required=false, value="user") String user,
 			@RequestParam(required=false, value="password") String password) {
 		
@@ -49,14 +51,16 @@ public class UserAction {
 		}
 		
 		// 校验用户名、密码是否正确
-		UserEx userName = userService.onLogin(user, password);
-		if (userName==null) {
+		UserEx userEx = userService.onLogin(user, password);
+		if (userEx==null) {
 			map.addAttribute("msg","账号或密码错误");
 			return "login";
 		}
-		
+//		map.addAttribute("userEx",userEx);
+		HttpSession session = request.getSession(true);//�½�session����
+		 session.setAttribute("user",userEx); 
 		// 登录成功，进入主页
-		if(userName.getRname().equals("管理员")) {
+		if(userEx.getRname().equals("管理员")) {
 			return "admin/index";
 		}else {
 			return "user/index";
