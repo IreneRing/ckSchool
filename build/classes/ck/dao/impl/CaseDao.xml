@@ -22,4 +22,58 @@
 	<select id="findInCase" resultMap="CaseMap">
 		SELECT * FROM tb_case ORDER BY cdate DESC	LIMIT 0,4
 	</select>
+	
+	<resultMap id="CaseExMap" type="ck.bean.CaseEx">
+		<id column="cid" property="cid" />
+		<result column="cname" property="cname" />
+		<result column="members" property="members" />
+		<result column="cmessage" property="cmessage" />
+		<result column="cdate" property="cdate" />
+		<result column="tid" property="tid" />
+		<result column="ccid" property="ccid" />
+		<result column="tname" property="tname" />
+		<result column="ccclass" property="ccclass" />
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllCaseEx" resultMap="CaseExMap">
+	SELECT tb_case.*,tb_case_class.ccclass,tb_teacher.tname FROM tb_case,tb_case_class,tb_teacher WHERE tb_case.ccid=tb_case_class.ccid AND tb_teacher.tid=tb_case.tid ORDER BY tb_case.cdate
+	</select>
+	<!-- id查找 -->
+	<select id="findCaseExById" resultMap="CaseExMap">
+		SELECT tb_case.*,tb_case_class.ccclass,tb_teacher.tname FROM tb_case,tb_case_class,tb_teacher WHERE tb_case.cid=#{cid} and tb_case.ccid=tb_case_class.ccid AND tb_teacher.tid=tb_case.tid
+	</select>
+	<!-- ccid查找 -->
+	<select id="findCaseExByClass" resultMap="CaseExMap">
+	SELECT tb_case.*,tb_case_class.ccclass,tb_teacher.tname FROM tb_case,tb_case_class,tb_teacher WHERE tb_case.ccid=#{ccid} and tb_case.ccid=tb_case_class.ccid AND tb_teacher.tid=tb_case.tid
+	</select>
+	<!-- 日期查找 -->
+	<select id="findCaseExByDate" resultMap="CaseExMap">
+	SELECT tb_case.*,tb_case_class.ccclass,tb_teacher.tname FROM tb_case,tb_case_class,tb_teacher WHERE tb_case.cdate
+	like
+	'%' #{cdate} '%' and tb_case.ccid=tb_case_class.ccid AND tb_teacher.tid=tb_case.tid
+	</select>
+	
+	<insert id="addCaseEx" parameterType="ck.bean.Case">
+		INSERT INTO tb_case(cname,cmessage,cdate,members,tid,ccid) 
+		VALUES(#{cname},#{cmessage},#{cdate},#{members},#{tid},#{ccid})
+	</insert>
+	
+	<update id="updCaseEx" parameterType="ck.bean.Case">
+    	UPDATE tb_case SET cname=#{cname} ,cmessage=#{cmessage} , cdate=#{cdate} ,
+    	members=#{members} ,tid=#{tid} ,ccid=#{ccid}
+		WHERE cid=#{cid}
+	</update>
+	
+	<delete id="delCaseEx" parameterType="java.lang.Integer">
+    	delete from tb_case where cid = #{cid}
+	</delete>
+	
+	<delete id="delAllCase" parameterType="java.util.List">
+    	delete from tb_case where cid 
+			in 
+			<foreach collection="list" item="cid" 
+				open="(" close=")" separator=",">
+				 #{cid}
+			</foreach>
+	</delete>
 </mapper>

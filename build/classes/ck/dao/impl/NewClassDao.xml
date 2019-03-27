@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="ck.dao.NewClassDao">
+	<resultMap id="NewsClassMap" type="ck.bean.NewsClass">
+		<id column="ncid" property="ncid" />
+		<result column="ncclass" property="ncclass" />
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findAllNewClass" resultMap="NewsClassMap">
+		SELECT * FROM tb_new_class
+	</select>
+	<!-- 通過id查找 -->
+	<select id="findNewClassById" resultMap="NewsClassMap">
+		SELECT * FROM tb_new_class where ncid=#{ncid}
+	</select>
+	<!-- 通過名字查找 -->
+	<select id="findNewClassByName" resultMap="NewsClassMap">
+		SELECT * FROM tb_new_class where ncclass=#{ncclass}
+	</select>
+	<insert id="addNewClass" parameterType="ck.bean.NewsClass">
+		INSERT INTO tb_new_class(ncclass) 
+		VALUES(#{ncclass})
+	</insert>
+	<update id="updNewClass" parameterType="ck.bean.NewsClass">
+    	UPDATE tb_new_class SET ncclass=#{ncclass}
+		WHERE ncid=#{ncid}
+	</update>
+	<delete id="delNewClass" parameterType="java.lang.Integer">
+    	delete from tb_new_class where ncid = #{ncid}
+	</delete>
+	<delete id="delAllNewClass" parameterType="java.util.List">
+    	delete from tb_new_class where ncid 
+			in 
+			<foreach collection="list" item="ncid" 
+				open="(" close=")" separator=",">
+				 #{ncid}
+			</foreach>
+	</delete>
+	
+	
+	<resultMap id="NewsClassAndNewsMap" type="ck.bean.NewsClass">
+		<id column="ncid" property="ncid" />
+		<result column="ncclass" property="ncclass" />
+		<collection property="news"   ofType="ck.bean.News" >
+			<id column="nid" property="nid" />
+			<result column="nname" property="nname" />
+			<result column="nmessage" property="nmessage" />
+			<result column="ndate" property="ndate" />
+			<result column="npic" property="npic" />
+			<result column="uid" property="uid" />
+			<result column="ncid" property="ncid" />
+		</collection>
+	</resultMap>
+	<!-- 查找所有 -->
+	<select id="findNewsClassAndNew" resultMap="NewsClassAndNewsMap">
+	SELECT * FROM tb_new_class LEFT JOIN tb_new ON tb_new_class.ncid=tb_new.ncid ORDER BY tb_new.ndate DESC
+	</select>
+</mapper>

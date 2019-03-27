@@ -19,5 +19,40 @@ public class ResClassServiceImpl implements ResClassService {
 		// TODO Auto-generated method stub
 		return resClassDao.findResClassAndRes();
 	}
+	@Override
+	public List<ResClass> findAllResClass() {
+		// TODO Auto-generated method stub
+		return resClassDao.findAllResClass();
+	}
+	@Override
+	public ResClass findResClassById(int rcid) {
+		// TODO Auto-generated method stub
+		return resClassDao.findResClassById(rcid);
+	}
+	@Override
+	public int addResClass(ResClass resClass) {
+		// TODO Auto-generated method stub
+		return resClassDao.addResClass(resClass);
+	}
+	@Override
+	public int updResClass(ResClass resClass) {
+		// TODO Auto-generated method stub
+		return resClassDao.updResClass(resClass);
+	}
+	@Override
+	public int delResClass(int rcid) {
+		// TODO Auto-generated method stub
+		return resClassDao.delResClass(rcid);
+	}
+	@Override
+	public int delAllResClass(List rcid) {
+		// TODO Auto-generated method stub
+		return resClassDao.delAllResClass(rcid);
+	}
+	@Override
+	public ResClass findResClassByName(String rcclass) {
+		// TODO Auto-generated method stub
+		return resClassDao.findResClassByName(rcclass);
+	}
 
 }

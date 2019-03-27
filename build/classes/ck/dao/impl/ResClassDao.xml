@@ -10,7 +10,36 @@
 		<result column="rcclass" property="rcclass" />
 	</resultMap>
 	<!-- 查找所有 -->
-	
+	<select id="findAllResClass" resultMap="ResClassMap">
+		SELECT * FROM tb_resources_class
+	</select>
+	<!-- 通過id查找 -->
+	<select id="findResClassById" resultMap="ResClassMap">
+		SELECT * FROM tb_resources_class where rcid=#{rcid}
+	</select>
+	<!-- 通過名字查找 -->
+	<select id="findResClassByName" resultMap="ResClassMap">
+		SELECT * FROM tb_resources_class where rcclass=#{rcclass}
+	</select>
+	<insert id="addResClass" parameterType="ck.bean.ResClass">
+		INSERT INTO tb_resources_class(rcclass) 
+		VALUES(#{rcclass})
+	</insert>
+	<update id="updResClass" parameterType="ck.bean.ResClass">
+    	UPDATE tb_resources_class SET rcclass=#{rcclass}
+		WHERE rcid=#{rcid}
+	</update>
+	<delete id="delResClass" parameterType="java.lang.Integer">
+    	delete from tb_resources_class where rcid = #{rcid}
+	</delete>
+	<delete id="delAllResClass" parameterType="java.util.List">
+    	delete from tb_resources_class where rcid 
+			in 
+			<foreach collection="list" item="rcid" 
+				open="(" close=")" separator=",">
+				 #{rcid}
+			</foreach>
+	</delete>
 	
 	<resultMap id="ResClassAndResMap" type="ck.bean.ResClass">
 		<id column="rcid" property="rcid" />

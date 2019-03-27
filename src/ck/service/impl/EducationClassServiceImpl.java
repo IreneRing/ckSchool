@@ -23,5 +23,35 @@ public class EducationClassServiceImpl implements EducationClassService {
 		// TODO Auto-generated method stub
 		return educationClassDao.findAllEducationClass();
 	}
+	@Override
+	public int addEducationClass(EducationClass eduClass) {
+		// TODO Auto-generated method stub
+		return educationClassDao.addEducationClass(eduClass);
+	}
+	@Override
+	public int updEducationClass(EducationClass eduClass) {
+		// TODO Auto-generated method stub
+		return educationClassDao.updEducationClass(eduClass);
+	}
+	@Override
+	public int delEducationClass(int ecid) {
+		// TODO Auto-generated method stub
+		return educationClassDao.delEducationClass(ecid);
+	}
+	@Override
+	public int delAllEducationClass(List ecid) {
+		// TODO Auto-generated method stub
+		return educationClassDao.delAllEducationClass(ecid);
+	}
+	@Override
+	public EducationClass findEducationClassByName(String ecclass) {
+		// TODO Auto-generated method stub
+		return educationClassDao.findEducationClassByName(ecclass);
+	}
+	@Override
+	public EducationClass findEducationClassById(int ecid) {
+		// TODO Auto-generated method stub
+		return educationClassDao.findEducationClassById(ecid);
+	}
 	
 }

@@ -19,12 +19,51 @@
 	</resultMap>
 	<!-- 查找所有 -->
 	<select id="findAllTeacher" resultMap="TeacherExMap">
-		SELECT tb_teacher.*,tb_teacher_class.tcclass FROM tb_teacher,tb_teacher_class WHERE	tb_teacher.tcid=tb_teacher_class.tcid
+		SELECT tb_teacher.*,tb_teacher_class.tcclass FROM tb_teacher,tb_teacher_class 
+		WHERE	tb_teacher.tcid=tb_teacher_class.tcid and tb_teacher.status=0
 	</select>
 	<!-- 查找数目3 -->
 	<select id="findInTeacher" resultMap="TeacherExMap">
 		SELECT tb_teacher.*,tb_teacher_class.tcclass FROM tb_teacher,tb_teacher_class WHERE	
-		tb_teacher.tcid=tb_teacher_class.tcid ORDER BY	tdate DESC
+		tb_teacher.tcid=tb_teacher_class.tcid and tb_teacher.status=0 ORDER BY	tdate DESC
 		LIMIT 0, 3
 	</select>
+	<!-- id查找 -->
+	<select id="findTeacherExById" resultMap="TeacherExMap">
+	SELECT tb_teacher.*,tb_teacher_class.tcclass FROM tb_teacher,tb_teacher_class WHERE tb_teacher.tid=#{tid} and tb_teacher.tcid=tb_teacher_class.tcid 
+	</select>
+	<!-- tcid查找 -->
+	<select id="findTeacherExByClass" resultMap="TeacherExMap">
+		SELECT tb_teacher.*,tb_teacher_class.tcclass FROM tb_teacher,tb_teacher_class WHERE tb_teacher.tcid=#{tcid} and tb_teacher.tcid=tb_teacher_class.tcid 
+	</select>
+	<!-- 日期查找 -->
+	<select id="findTeacherExByDate" resultMap="TeacherExMap">
+	SELECT tb_teacher.*,tb_teacher_class.tcclass FROM tb_teacher,tb_teacher_class WHERE tb_teacher.tdate
+	like
+	CONCAT('%',#{tdate},'%') and tb_teacher.tcid=tb_teacher_class.tcid
+	</select>
+	<insert id="addTeacherEx" parameterType="ck.bean.Teacher">
+		INSERT INTO tb_teacher(tname,ttitle,tdate,tpic,temail,tqq,tphone,tcid,status) 
+		VALUES(#{tname},#{ttitle},#{tdate},#{tpic},#{temail},#{tqq},#{tphone},#{tcid},0)
+	</insert>
+	
+	<update id="updTeacherEx" parameterType="ck.bean.Teacher">
+    	UPDATE tb_teacher SET tname=#{tname} ,ttitle=#{ttitle} , tdate=#{tdate} ,tpic=#{tpic} ,temail=#{temail} ,tqq=#{tqq},tphone=#{tphone},tcid=#{tcid}
+		WHERE tid=#{tid}
+	</update>
+	
+	<update id="delTeacherEx" parameterType="java.lang.Integer">
+    	UPDATE tb_teacher SET status=1
+		WHERE tid=#{tid}
+	</update>
+	
+	<update id="delAllTeacher" parameterType="java.util.List">
+    	UPDATE tb_teacher SET status=1
+		WHERE tid
+			in 
+			<foreach collection="list" item="tid" 
+				open="(" close=")" separator=",">
+				 #{tid}
+			</foreach>
+	</update>
 </mapper>

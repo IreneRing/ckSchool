@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,6 +41,8 @@ public class EducationAction {
 	private EducationClassService educationClassService;
 	
 	//user
+	
+	
 	/**
 	 * 查出所有list
 	 * 
@@ -63,34 +66,26 @@ public class EducationAction {
 	 */
 	@RequestMapping(value="eduAdd.action",method={RequestMethod.POST})
 	public String eduAdd(HttpServletRequest request,Education edu,
-			@RequestParam(value="file") MultipartFile[] partFiles)throws IOException{
-		for(MultipartFile partFile:partFiles)
-		{
-			if(!partFile.isEmpty())//file不为空
-			{
-				//设置服务端上传文件的目录
-				//  /uploadfile
-				String uploadfilePath=request.getServletContext().getRealPath("/static/upload/edu");
-				
-				System.out.println("上传文件目录="+uploadfilePath);
-				
-				//获取上传文件名
-				String fileName=UUID.randomUUID().toString().replaceAll("-","")+"."+partFile.getOriginalFilename();
-				//新建File对象，作为目标文件对象
-				//  路径名/fileName
-				File destFile=new File(uploadfilePath+File.separator+fileName);
-				//判断这个file是否存在
-				if(!destFile.exists())
-				{
-					destFile.createNewFile();//不存在则重新创建
-				}
-				//当file存在，那么将这个file写入硬盘
-				partFile.transferTo(destFile);
-				System.out.println(destFile+"");
-				
-				//System.out.println("D:\\workspace\\ckSchool\\WebContent\\upload\\"+fileName);
-				edu.setEpic("static/upload/edu/"+fileName);
+			@RequestParam(value="file",required=false) MultipartFile file)throws IOException{
+		File destParentPath=new File("D:/workspace/ckSchool/WebContent/static/upload/edu");
+		if(file!=null) {
+			//目錄是否存在
+			if(!destParentPath.exists()) {
+				destParentPath.mkdirs();
 			}
+			//uuid國際隨機字符串
+			String uuid=UUID.randomUUID().toString().replaceAll("-", "");
+			//文件擴展名
+			String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+			//保存文件名稱
+			String newFile=uuid+"."+extension;
+			System.out.println(newFile);
+			System.out.println(destParentPath);
+			//創建文件
+			File destFile=new File(destParentPath,newFile);
+			//保存文件
+			file.transferTo(destFile);
+			edu.setEpic("/static/upload/edu/"+newFile);
 		}
 		int row=educationService.addEducationEx(edu);
 		return "redirect:/edu/findAllEducationAndClass.action";
@@ -109,34 +104,35 @@ public class EducationAction {
 	 * 编辑操作
 	 */
 	@RequestMapping(value="eduUpd.action",method={RequestMethod.POST})
-	public String eduUpd(HttpServletRequest request,ModelMap map,Education edu,
-			@RequestParam(value="newFile") MultipartFile newFile)throws IOException{
-		if(!newFile.isEmpty())//file不为空
-		{
-			//设置服务端上传文件的目录
-			//  /uploadfile
-			String uploadfilePath=request.getServletContext().getRealPath("/static/upload/edu");
-			
-			System.out.println("上传文件目录="+uploadfilePath);
-			
-			//获取上传文件名
-			String fileName=UUID.randomUUID().toString().replaceAll("-","")+"."+newFile.getOriginalFilename();
-			//新建File对象，作为目标文件对象
-			//  路径名/fileName
-			File destFile=new File(uploadfilePath+File.separator+fileName);
-			//判断这个file是否存在
-			if(!destFile.exists())
-			{
-				destFile.createNewFile();//不存在则重新创建
-			}
-			//当file存在，那么将这个file写入硬盘
-			newFile.transferTo(destFile);
-			System.out.println(destFile+"");
-			
-			//System.out.println("D:\\workspace\\ckSchool\\WebContent\\upload\\"+fileName);
-			edu.setEpic("static/upload/edu/"+fileName);
-		}
+	public String eduUpd(HttpServletRequest request,Education edu,
+			@RequestParam(value="newFile",required=false) MultipartFile file)throws IOException{
 		
+		File destParentPath=new File("D:/workspace/ckSchool/WebContent/static/upload/edu");
+		if(file!=null)//file不为空
+		{
+			//目錄是否存在
+			if(!destParentPath.exists()) {
+				destParentPath.mkdirs();
+			}
+			//uuid國際隨機字符串
+			String uuid=UUID.randomUUID().toString().replaceAll("-", "");
+			//文件擴展名
+			String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+			//保存文件名稱
+			String newFile=uuid+"."+extension;
+			System.out.println(newFile);
+			System.out.println(destParentPath);
+			//創建文件
+			File destFile=new File(destParentPath,newFile);
+			//当file存在，那么将这个file写入硬盘
+			file.transferTo(destFile);
+			//删除旧图片
+			File oldFile=new File("D:/workspace/ckSchool/WebContent"+edu.getEpic());
+			oldFile.delete();
+			System.out.println(oldFile+"");
+			//System.out.println("D:\\workspace\\ckSchool\\WebContent\\upload\\"+fileName);
+			edu.setEpic("/static/upload/edu/"+newFile);
+		}
 		int row=educationService.updEducationEx(edu);
 		return "redirect:/edu/findAllEducationAndClass.action";
 	}
@@ -146,8 +142,14 @@ public class EducationAction {
 	@RequestMapping("eduDel.action")
 	public String eduDel(ModelMap map,
 			@RequestParam(required=false, value="eid") int eid){
+		String pic=educationService.findEducationExById(eid).getEpic();
 		int row=educationService.delEducationEx(eid);
-		System.out.println("1111111111111");
+		if(row>0) {
+			//删除旧图片
+			File oldFile=new File("D:/workspace/ckSchool/WebContent"+pic);
+			oldFile.delete();
+			System.out.println(pic);
+		}
 		return "redirect:/edu/findAllEducationAndClass.action";
 	}
 	/**
@@ -161,16 +163,31 @@ public class EducationAction {
 		System.out.println("删除id："+Arrays.asList(s));
 		List<String > list =Arrays.asList(s);
 		List<Integer> eid=new ArrayList();
-		for (String string : list) {
-			int id=Integer.parseInt(string);
+		List<String> pic=new ArrayList<>();
+		for(int i=0;i<list.size();i++) {
+			int id=Integer.parseInt(list.get(i));
 			eid.add(id);
+			pic.add(educationService.findEducationExById(eid.get(i)).getEpic());
 		}
+		int row=0;
+		
 		try {
-			educationService.delAllEducation(eid);
+			row=educationService.delAllEducation(eid);
 			map.put("data", "ok");
 		}catch (Exception e) {
 			// TODO: handle exception
 			map.put("data", "");
+		}
+		
+		if(row>0) {
+			for (String string : pic) {
+				if(string!=null && string!="") {
+					//删除旧图片
+					File oldFile=new File("D:/workspace/ckSchool/WebContent"+string);
+					oldFile.delete();
+					System.out.println(string);
+				}
+			}
 		}
 		return map;
 	}

@@ -24,4 +24,41 @@
 	<select id="findResBySort" resultMap="ResExMap">
 		
 	</select>
+	<!-- id查找 -->
+	<select id="findResExById" resultMap="ResExMap">
+	SELECT tb_resources.*,tb_resources_class.rcclass,tb_user.username FROM tb_resources,tb_resources_class,tb_user WHERE tb_resources.rid=#{rid} and tb_resources.rcid=tb_resources_class.rcid AND tb_user.uid=tb_resources.uid
+	</select>
+	<!-- rcid查找 -->
+	<select id="findResExByClass" resultMap="ResExMap">
+	SELECT tb_resources.*,tb_resources_class.rcclass,tb_user.username FROM tb_resources,tb_resources_class,tb_user WHERE tb_resources.rcid=#{rcid} and tb_resources.rcid=tb_resources_class.rcid AND tb_user.uid=tb_resources.uid
+	</select>
+	<!-- 日期查找 -->
+	<select id="findResExByDate" resultMap="ResExMap">
+	SELECT tb_resources.*,tb_resources_class.rcclass,tb_user.username FROM tb_resources,tb_resources_class,tb_user WHERE tb_resources.rdate
+	like
+	'%' #{rdate} '%' and tb_resources.rcid=tb_resources_class.rcid AND tb_user.uid=tb_resources.uid
+	</select>
+	
+	<insert id="addResEx" parameterType="ck.bean.Res">
+		INSERT INTO tb_resources(rname,rmessage,rdate,link,uid,rcid) 
+		VALUES(#{rname},#{rmessage},#{rdate},#{link},#{uid},#{rcid})
+	</insert>
+	
+	<update id="updResEx" parameterType="ck.bean.Res">
+    	UPDATE tb_resources SET rname=#{rname} ,rmessage=#{rmessage} , rdate=#{rdate} ,link=#{link} ,uid=#{uid} ,rcid=#{rcid}
+		WHERE rid=#{rid}
+	</update>
+	
+	<delete id="delResEx" parameterType="java.lang.Integer">
+    	delete from tb_resources where rid = #{rid}
+	</delete>
+	
+	<delete id="delAllRes" parameterType="java.util.List">
+    	delete from tb_resources where rid 
+			in 
+			<foreach collection="list" item="rid" 
+				open="(" close=")" separator=",">
+				 #{rid}
+			</foreach>
+	</delete>
 </mapper>

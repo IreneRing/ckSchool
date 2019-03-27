@@ -24,4 +24,40 @@
 	<select id="findInNew" resultMap="NewExMap">
 		SELECT tb_new.*,tb_new_class.ncclass,tb_user.username FROM tb_new,tb_new_class,tb_user WHERE tb_new.ncid=tb_new_class.ncid AND tb_user.uid=tb_new.uid LIMIT 0,4
 	</select>
+	<!-- id查找 -->
+	<select id="findNewsExById" resultMap="NewExMap">
+	SELECT tb_new.*,tb_new_class.ncclass,tb_user.username FROM tb_new,tb_new_class,tb_user WHERE tb_new.nid=#{nid} and tb_new.ncid=tb_new_class.ncid AND tb_user.uid=tb_new.uid
+	</select>
+	<!-- ncid查找 -->
+	<select id="findNewsExByClass" resultMap="NewExMap">
+	SELECT tb_new.*,tb_new_class.ncclass,tb_user.username FROM tb_new,tb_new_class,tb_user WHERE tb_new.ncid=#{ncid} and tb_new.ncid=tb_new_class.ncid AND tb_user.uid=tb_new.uid
+	</select>
+	<!-- 日期查找 -->
+	<select id="findNewsExByDate" resultMap="NewExMap">
+	SELECT tb_new.*,tb_new_class.ncclass,tb_user.username FROM tb_new,tb_new_class,tb_user WHERE tb_new.ndate
+	like
+	'%' #{ndate} '%' and tb_new.ncid=tb_new_class.ncid AND tb_user.uid=tb_new.uid
+	</select>
+	
+	<insert id="addNewsEx" parameterType="ck.bean.News">
+		INSERT INTO tb_new(nname,nmessage,ndate,npic,uid,ncid) 
+		VALUES(#{nname},#{nmessage},#{ndate},#{npic},#{uid},#{ncid})
+	</insert>
+	
+	<update id="updNewsEx" parameterType="ck.bean.News">
+    	UPDATE tb_new SET nname=#{nname} ,nmessage=#{nmessage} , ndate=#{ndate} ,npic=#{npic} ,uid=#{uid} ,ncid=#{ncid}
+		WHERE nid=#{nid}
+	</update>
+	
+	<delete id="delNewsEx" parameterType="java.lang.Integer">
+    	delete from tb_new where nid = #{nid}
+	</delete>
+	<delete id="delAllNews" parameterType="java.util.List">
+    	delete from tb_new where nid 
+			in 
+			<foreach collection="list" item="nid" 
+				open="(" close=")" separator=",">
+				 #{nid}
+			</foreach>
+	</delete>
 </mapper>

@@ -11,6 +11,33 @@
 	<select id="findAllEducationClass" resultMap="EducationClassMap">
 		SELECT * FROM tb_education_class
 	</select>
+	<!-- 通過id查找 -->
+	<select id="findEducationClassById" resultMap="EducationClassMap">
+		SELECT * FROM tb_education_class where ecid=#{ecid}
+	</select>
+	<!-- 通過名字查找 -->
+	<select id="findEducationClassByName" resultMap="EducationClassMap">
+		SELECT * FROM tb_education_class where ecclass=#{ecclass}
+	</select>
+	<insert id="addEducationClass" parameterType="ck.bean.EducationClass">
+		INSERT INTO tb_education_class(ecclass) 
+		VALUES(#{ecclass})
+	</insert>
+	<update id="updEducationClass" parameterType="ck.bean.EducationClass">
+    	UPDATE tb_education_class SET ecclass=#{ecclass}
+		WHERE ecid=#{ecid}
+	</update>
+	<delete id="delEducationClass" parameterType="java.lang.Integer">
+    	delete from tb_education_class where ecid = #{ecid}
+	</delete>
+	<delete id="delAllEducationClass" parameterType="java.util.List">
+    	delete from tb_education_class where ecid 
+			in 
+			<foreach collection="list" item="ecid" 
+				open="(" close=")" separator=",">
+				 #{ecid}
+			</foreach>
+	</delete>
 	
 	<resultMap id="EducationClassAndEducationMap" type="ck.bean.EducationClass">
 		<id column="ecid" property="ecid" />
@@ -29,4 +56,6 @@
 	<select id="findEducationClassAndEducation" resultMap="EducationClassAndEducationMap">
 	SELECT * FROM tb_education_class LEFT JOIN	tb_education ON	tb_education_class.ecid=tb_education.ecid ORDER BY tb_education.edate DESC
 	</select>
+	
+	
 </mapper>

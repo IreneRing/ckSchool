@@ -5,7 +5,7 @@
 <mapper namespace="ck.dao.AchievementsDao">
 	
 	<!-- 建立sql查询结果字段与实体属性的映射关系 -->
-	<resultMap id="AchievementsMap" type="ck.bean.AchievementsEx">
+	<resultMap id="AchievementsExMap" type="ck.bean.AchievementsEx">
 		<result column="aid" property="aid" />
 		<result column="aname" property="aname" />
 		<result column="amessage" property="amessage" />
@@ -17,11 +17,49 @@
 		<result column="tname" property="tname" />
 	</resultMap>
 	<!-- 查找所有 -->
-	<select id="findAllAchievements" resultMap="AchievementsMap">
+	<select id="findAllAchievements" resultMap="AchievementsExMap">
 		SELECT tb_achievements.*,tb_user.username,tb_teacher.tname FROM tb_achievements,tb_teacher,tb_user WHERE tb_achievements.uid=tb_user.uid AND tb_teacher.tid=tb_achievements.tid ORDER BY tb_achievements.adate DESC
 	</select>
 	<!-- 查找数目4 -->
-	<select id="findInAchievements" resultMap="AchievementsMap">
+	<select id="findInAchievements" resultMap="AchievementsExMap">
 		SELECT tb_achievements.*,tb_user.username,tb_teacher.tname FROM tb_achievements,tb_teacher,tb_user WHERE tb_achievements.uid=tb_user.uid AND tb_teacher.tid=tb_achievements.tid LIMIT 0,4
 	</select>
+	
+	<!-- id查找 -->
+	<select id="findAchievementsExById" resultMap="AchievementsExMap">
+		SELECT tb_achievements.*,tb_user.username,tb_teacher.tname FROM tb_achievements,tb_teacher,tb_user WHERE tb_achievements.uid=tb_user.uid AND tb_teacher.tid=tb_achievements.tid AND tb_achievements.aid=#{aid}
+	</select>
+	
+	<!-- tid查找 -->
+	<select id="findAchievementsExByTid" resultMap="AchievementsExMap">
+		SELECT tb_achievements.*,tb_user.username,tb_teacher.tname FROM tb_achievements,tb_teacher,tb_user WHERE tb_achievements.uid=tb_user.uid AND tb_teacher.tid=tb_achievements.tid AND tb_achievements.tid=#{tid}
+	</select>
+	
+	<!-- 日期查找 -->
+	<select id="findAchievementsExByDate" resultMap="AchievementsExMap">
+		SELECT tb_achievements.*,tb_user.username,tb_teacher.tname FROM tb_achievements,tb_teacher,tb_user WHERE tb_achievements.uid=tb_user.uid AND tb_teacher.tid=tb_achievements.tid AND tb_achievements.adate
+	like
+	'%' #{adate} '%'
+	</select>
+	
+	<insert id="addAchievementsEx" parameterType="ck.bean.Achievements">
+		INSERT INTO tb_achievements(aname,amessage,adate,apic,uid,tid) VALUES
+		(#{aname},#{amessage},#{adate},#{apic},#{uid},#{tid})
+	</insert>
+	<update id="updAchievementsEx" parameterType="ck.bean.Achievements">
+    	UPDATE tb_achievements SET aname=#{aname} ,amessage=#{amessage} , adate=#{adate} ,
+    	apic=#{apic} ,uid=#{uid} ,tid=#{tid}
+		WHERE aid=#{aid}
+	</update>
+	<delete id="delAchievementsEx" parameterType="java.lang.Integer">
+    	delete from tb_achievements where aid = #{aid}
+	</delete>
+	<delete id="delAllAchievements" parameterType="java.util.List">
+    	delete from tb_achievements where aid 
+			in 
+			<foreach collection="list" item="aid" 
+				open="(" close=")" separator=",">
+				 #{aid}
+			</foreach>
+	</delete>
 </mapper>

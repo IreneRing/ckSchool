@@ -9,7 +9,7 @@ public class Teacher {
 	private String temail;
 	private String tqq;
 	private String tphone;
-	private String tcid;
+	private int tcid;
 	public int getTid() {
 		return tid;
 	}
@@ -58,10 +58,10 @@ public class Teacher {
 	public void setTphone(String tphone) {
 		this.tphone = tphone;
 	}
-	public String getTcid() {
+	public int getTcid() {
 		return tcid;
 	}
-	public void setTcid(String tcid) {
+	public void setTcid(int tcid) {
 		this.tcid = tcid;
 	}
 	@Override

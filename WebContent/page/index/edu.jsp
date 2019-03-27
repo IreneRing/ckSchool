@@ -54,8 +54,9 @@
 											<a href="single-project-small.html" class="item-permalink"><i
 												class="icon-link"></i></a> <a
 												href="${pageContext.request.contextPath}/static/index/images/blog/blog-small-01.jpg" data-rel="prettyPhoto"
-												class="item-preview"><i class="icon-zoom-in"></i></a> <img
-												src="${pageContext.request.contextPath}/static/index/images/blog/blog-small-01.jpg" alt="" />
+												class="item-preview"><i class="icon-zoom-in"></i></a> 
+												<c:if test="${eduList.epic!=null && eduList.epic!=''}"><img src="${eduList.epic}"/></c:if>
+												<c:if test="${eduList.epic==null || eduList.epic==''}"><img src="/static/upload/edu/NoImage.jpg"></c:if>
 										</div>
 									</div>
 								</div>

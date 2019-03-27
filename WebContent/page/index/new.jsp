@@ -54,7 +54,9 @@
 									<div class="blog-item small">
 										<a href="single-project-small.html" class="item-permalink"><i class="icon-link"></i></a>
 										<a href="${pageContext.request.contextPath}/static/index/images/blog/blog-small-01.jpg" data-rel="prettyPhoto" class="item-preview"><i class="icon-zoom-in"></i></a>
-										<img src="${pageContext.request.contextPath}/static/index/images/blog/blog-small-01.jpg" alt=""/>
+										<%-- <img src="${pageContext.request.contextPath}/static/index/images/blog/blog-small-01.jpg" alt=""/> --%>
+										<c:if test="${newList.npic!=null && newList.npic!=''}"><img src="${newList.npic}"/></c:if>
+										<c:if test="${newList.npic==null || newList.npic==''}"><img src="/static/upload/new/NoImage.jpg"></c:if>
 									</div>
 								</div>
 							</div>

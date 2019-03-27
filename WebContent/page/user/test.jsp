@@ -12,7 +12,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 
-<img alt="1" width="100px" height="100px" src="D:\workspace\ckSchool\WebContent\upload\561b305ff1cc4105bea66b9ff6105724TIM图片20190125155917.jpg">
-<%=basePath %>upload/561b305ff1cc4105bea66b9ff6105724TIM图片20190125155917.jpg
+<img alt="1" width="100px" height="100px" src="/static/upload/edu/NoImage.jpg">
+
+<br>
+<%=basePath %>
 </body>
 </html>

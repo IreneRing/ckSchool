@@ -14,6 +14,35 @@
 		SELECT * FROM tb_teacher_class 
 	</select>
 	
+	<!-- 通過id查找 -->
+	<select id="findTeacherClassById" resultMap="TeacherClassMap">
+		SELECT * FROM tb_teacher_class where tcid=#{tcid}
+	</select>
+	
+	<!-- 通過名字查找 -->
+	<select id="findTeacherClassByName" resultMap="TeacherClassMap">
+		SELECT * FROM tb_teacher_class where tcclass=#{tcclass}
+	</select>
+	<insert id="addTeacherClass" parameterType="ck.bean.TeacherClass">
+		INSERT INTO tb_teacher_class(tcclass) 
+		VALUES(#{tcclass})
+	</insert>
+	<update id="updTeacherClass" parameterType="ck.bean.TeacherClass">
+    	UPDATE tb_teacher_class SET tcclass=#{tcclass}
+		WHERE tcid=#{tcid}
+	</update>
+	<delete id="delTeacherClass" parameterType="java.lang.Integer">
+    	delete from tb_teacher_class where tcid = #{tcid}
+	</delete>
+	<delete id="delAllTeacherClass" parameterType="java.util.List">
+    	delete from tb_teacher_class where tcid 
+			in 
+			<foreach collection="list" item="tcid" 
+				open="(" close=")" separator=",">
+				 #{tcid}
+			</foreach>
+	</delete>
+	
 	<resultMap id="TeacherClassAndTeacherMap" type="ck.bean.TeacherClass">
 		<id column="tcid" property="tcid" />
 		<result column="tcclass" property="tcclass" />

@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<span class="l">
 		<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
 			<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
-		</a> <a class="btn btn-primary radius" onclick="edu_add('添加内容','${pageContext.request.contextPath}/edu/eduPreAdd.action')" href="javascript:;">
+		</a> <a class="btn btn-primary radius" onclick="add('添加内容','${pageContext.request.contextPath}/edu/eduPreAdd.action')" href="javascript:;">
 			<i class="Hui-iconfont">&#xe600;</i> 添加内容
 		</a></span> 
 		<span class="r"><!-- 共有数据：<strong>54</strong> 条 -->
@@ -64,8 +64,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td class="text-c">${eList.ecclass }</td>
 					<td class="text-c">${eList.ename }</td>
 					<td>
-						<c:if test="${eList.epic!=null && eList.epic!=''}"><img width="80" height="50" class="picture-thumb" src="${pageContext.request.contextPath}/${eList.epic }"></c:if>
-						<c:if test="${eList.epic==null || eList.epic==''}"><img width="80" height="50" class="picture-thumb" src="${pageContext.request.contextPath}/static/upload/edu/NoImage.jpg"></c:if>
+						<c:if test="${eList.epic!=null && eList.epic!=''}"><img width="80" height="50" class="picture-thumb" src="${eList.epic }"></c:if>
+						<c:if test="${eList.epic==null || eList.epic==''}"><img width="80" height="50" class="picture-thumb" src="/static/upload/edu/NoImage.jpg"></c:if>
 					</td>
 					<td>${eList.edate }</td>
 					<td class="text-c">${eList.username }</td>
@@ -73,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!-- <a style="text-decoration:none" onClick="picture_stop(this,'10001')" href="javascript:;" title="下架">
 							<i class="Hui-iconfont">&#xe6de;</i>
 						</a> --> 
-						<a style="text-decoration:none" class="ml-5" onClick="edu_edit('编辑','${pageContext.request.contextPath}/edu/eduPreUpd.action?eid=${eList.eid }')" href="javascript:;" title="编辑">
+						<a style="text-decoration:none" class="ml-5" onClick="edit('编辑','${pageContext.request.contextPath}/edu/eduPreUpd.action?eid=${eList.eid }')" href="javascript:;" title="编辑">
 							<i class="Hui-iconfont">&#xe6df;</i>
 						</a> 
 						<!-- onClick="edu_del(this,${eList.eid })" -->
@@ -106,7 +106,7 @@ $('.table-sort').dataTable({
 });
 
 /*添加*/
-function edu_add(title,url){
+function add(title,url){
 	var index = layer.open({
 		type: 2,
 		title: title,
@@ -126,7 +126,7 @@ function edu_add(title,url){
 
 
 /*编辑*/
-function edu_edit(title,url){
+function edit(title,url){
 	var index = layer.open({
 		type: 2,
 		title: title,
@@ -158,7 +158,7 @@ function datadel(){
 					
                     "${pageContext.request.contextPath}/edu/eduAllDel.action?ids="+res.toArray().join(","),
                     function(data){
-                        if(data == "ok"){
+                       /*  if(data == "ok"){
                             layer.msg('删除成功',{icon:1,time:1000});
                             $("input[name='tag']:checked").each(function(i,e){
                                 $(this).remove();
@@ -166,8 +166,8 @@ function datadel(){
                             
                         }else{
                             layer.msg('删除失败',{icon:2,time:1000});
-                        }
-                        window.location.reload();
+                        } */
+                        location.replace(location.href);
                     }
                 );
             

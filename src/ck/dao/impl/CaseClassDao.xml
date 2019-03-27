@@ -9,8 +9,36 @@
 	</resultMap>
 	<!-- 查找所有 -->
 	<select id="findAllCaseClass" resultMap="CaseClassMap">
-		SELECT * FROM tb_cass_class 
+		SELECT * FROM tb_case_class 
 	</select>
+	
+	<!-- 通過id查找 -->
+	<select id="findCaseClassById" resultMap="CaseClassMap">
+		SELECT * FROM tb_case_class where ccid=#{ccid}
+	</select>
+	<!-- 通過名字查找 -->
+	<select id="findCaseClassByName" resultMap="CaseClassMap">
+		SELECT * FROM tb_case_class where ccclass=#{ccclass}
+	</select>
+	<insert id="addCaseClass" parameterType="ck.bean.CaseClass">
+		INSERT INTO tb_case_class(ccclass) 
+		VALUES(#{ccclass})
+	</insert>
+	<update id="updCaseClass" parameterType="ck.bean.CaseClass">
+    	UPDATE tb_case_class SET ccclass=#{ccclass}
+		WHERE ccid=#{ccid}
+	</update>
+	<delete id="delCaseClass" parameterType="java.lang.Integer">
+    	delete from tb_case_class where ccid = #{ccid}
+	</delete>
+	<delete id="delAllCaseClass" parameterType="java.util.List">
+    	delete from tb_case_class where ccid 
+			in 
+			<foreach collection="list" item="ccid" 
+				open="(" close=")" separator=",">
+				 #{ccid}
+			</foreach>
+	</delete>
 	
 	<resultMap id="CaseClassAndCaseMap" type="ck.bean.CaseClass">
 		<id column="ccid" property="ccid" />
@@ -27,6 +55,6 @@
 	</resultMap>
 	<!-- 查找所有 -->
 	<select id="findAllCaseAndClass" resultMap="CaseClassAndCaseMap">
-		SELECT * FROM tb_cass_class LEFT JOIN	tb_case ON	tb_cass_class.ccid=tb_case.ccid ORDER BY tb_cass_class.ccid
+		SELECT * FROM tb_case_class LEFT JOIN	tb_case ON	tb_cass_class.ccid=tb_case.ccid ORDER BY tb_cass_class.ccid
 	</select>
 </mapper>

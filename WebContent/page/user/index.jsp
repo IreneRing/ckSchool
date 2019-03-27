@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>系统后台</title>
 <jsp:include page="elements/link.jsp"></jsp:include>
 <title>创客系统后台</title>
 </head>
@@ -16,6 +16,7 @@
 			<a aria-hidden="false" class="nav-toggle Hui-iconfont visible-xs" href="javascript:;">&#xe667;</a>
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
+			
 				<li>用户</li>
 				<li class="dropDown dropDown_hover">
 				<!-- ${userEx.username} -->
@@ -49,24 +50,25 @@
 			<dd>
 				<ul>
 					<li><a data-href="${pageContext.request.contextPath}/edu/findAllEducationAndClass.action" data-title="资讯管理" href="javascript:void(0)">资讯管理</a></li>
-			</ul>
-		</dd>
-	</dl>
+					<li><a data-href="${pageContext.request.contextPath}/eduClass/findAllEducationClass.action" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+				</ul>
+			</dd>
+		</dl>
 		<dl id="menu-picture">
 			<dt><i class="Hui-iconfont">&#xe613;</i> 创客新聞管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="new-list.html" data-title="新聞管理" href="javascript:void(0)">新聞管理</a></li>
-			</ul>
-		</dd>
-	</dl>
+					<li><a data-href="${pageContext.request.contextPath}/new/findAllNewsAndClass.action" data-title="新聞管理" href="javascript:void(0)">新聞管理</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/newClass/findAllNewsClass.action" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+				</ul>
+			</dd>
+		</dl>
 		<dl id="menu-product">
 			<dt><i class="Hui-iconfont">&#xe620;</i> 资源管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="product-brand.html" data-title="品牌管理" href="javascript:void(0)">品牌管理</a></li>
-					<li><a data-href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-					<li><a data-href="product-list.html" data-title="产品管理" href="javascript:void(0)">产品管理</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/res/findAllResAndClass.action" data-title="资源管理" href="javascript:void(0)">资源管理</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/resClass/findAllResClass.action" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -74,8 +76,8 @@
 			<dt><i class="Hui-iconfont">&#xe622;</i> 创客创业管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a></li>
-					<li><a data-href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/case/findAllCaseAndClass.action" data-title="创业管理" href="javascript:;">创业管理</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/caseClass/findAllCaseClass.action" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -83,13 +85,7 @@
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 创客成果管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
-					<li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
-					<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
-					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
-					<li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a></li>
-					<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a></li>
-					<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/achievements/findAllAchievementsAndClass.action" data-title="成果管理" href="javascript:;">成果管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -97,9 +93,8 @@
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 创客导师管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
-					<li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/tea/findAllTeacherAndClass.action" data-title="导师管理" href="javascript:void(0)">导师管理</a></li>
+					<li><a data-href="${pageContext.request.contextPath}/teaClass/findAllTeacherClass.action" data-title="分組管理" href="javascript:void(0)">分組管理</a></li>
 			</ul>
 		</dd>
 	</dl>
@@ -150,15 +145,16 @@ $(function(){
 });
 /*个人信息*/
 function myselfinfo(){
-	layer.open({
-		type: 1,
-		area: ['300px','200px'],
-		fix: false, //不固定
-		maxmin: true,
-		shade:0.4,
+	var index=layer.open({
+		type: 2,
+		//area: ['300px','200px'],
+		//fix: false, //不固定
+		//maxmin: true,
+		//shade:0.4,
 		title: '查看信息',
-		content: '<div>管理员信息</div>'
+		content: 
 	});
+	layer.full(index);
 }
 
 /*资讯-添加*/
